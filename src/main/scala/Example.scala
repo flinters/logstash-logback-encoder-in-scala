@@ -1,6 +1,6 @@
-import net.logstash.logback.argument.StructuredArguments
-import net.logstash.logback.marker.Markers
 import org.slf4j.LoggerFactory
+
+import scala.collection.JavaConverters._
 
 object Example extends App {
 
@@ -10,8 +10,14 @@ object Example extends App {
   logger.info("Hello, Logging with JSON!")
 
   // StructuredArgument で動的にフィールドを追加
-  logger.info("log message {}", StructuredArguments.value("name", Map(1 -> "a")))
+  import net.logstash.logback.argument.StructuredArguments._
+  logger.info("StructuredArguments.value {}", value("KEY", "VALUE"))
+  logger.info("StructuredArguments.keyValue {}", keyValue("KEY", "VALUE"))
+  logger.info("StructuredArguments.entries {}", entries(Map("k1" -> "v1", "k2" -> "v2").asJava))
+  logger.info("StructuredArguments.array {}", array("array", "a", "b", "c"))
+  logger.info("StructuredArguments.raw {}", raw("raw", """{"KEY":"VALUE"}"""))
 
   // Marker で動的にフィールドを追加
-  logger.info(Markers.append("marker", "mkr"), "Marker")
+  import net.logstash.logback.marker.Markers._
+  logger.info(append("marker", "mkr"), "Markers.append")
 }
