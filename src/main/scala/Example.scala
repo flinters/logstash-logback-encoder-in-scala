@@ -33,4 +33,12 @@ object Example extends App {
     append("KEY_A", "VALUE_A").and(append("KEY_B", "VALUE_B"))
   logger.info(marker, "multiple markers")
 
+  println("\n=== MDC ===================================================\n")
+
+  // MDC で動的にフィールドを追加
+  import org.slf4j.MDC
+  MDC.put("KEY", "VALUE")
+  logger.info("logging with MDC")
+  MDC.remove("KEY")
+
 }
