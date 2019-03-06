@@ -41,4 +41,24 @@ object Example extends App {
   logger.info("logging with MDC")
   MDC.remove("KEY")
 
+  println("\n=== Scala Objects ===================================================\n")
+
+  // Scala由来のオブジェクトをフィールドに追加
+  case class User(id: Long, name: String, interests: List[String])
+  case class Group(id: Long, name: String, users: Set[User])
+
+  val group = Group(9000, "The Scala Group", Set(
+    User(100, "userA", List("Scala", "Logging")),
+    User(200, "userB", List("Java", "Kotlin"))
+  ))
+
+  val scalaMap = Map(
+    "KEY" -> "VALUE",
+    "map_in_map" -> Map(
+      "INNER_KEY" -> "INNER_VALUE"
+    ),
+    "group" -> group
+  )
+
+  logger.info("logging with Scala: {}", value("scala_map", scalaMap))
 }
